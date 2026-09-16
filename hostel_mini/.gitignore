@@ -1,0 +1,30 @@
+# Environment variables
+.env
+.env.local
+
+# Python cache & virtualenv
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+env/
+venv/
+ENV/
+
+# Databases
+*.sqlite3
+*.db
+
+# Media & Uploads
+media/
+staticfiles/
+
+# IDE & Editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
