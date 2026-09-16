@@ -42,22 +42,22 @@ export const Modal = ({
 
       {/* Modal Dialog */}
       <div
-        className={`relative w-full ${maxWidth} transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all z-10 flex flex-col max-h-[90vh]`}
+        className={`relative w-full ${maxWidth} transform overflow-hidden rounded-3xl bg-white text-left shadow-2xl transition-all z-10 flex flex-col max-h-[90vh] border border-[#E3DDD2]`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-100 px-6 py-4">
-          <h3 className="text-lg font-bold text-slate-800">{title}</h3>
+        <div className="flex items-center justify-between border-b border-[#EDE7DD] bg-[#FAF8F5] px-6 py-4.5">
+          <h3 className="font-serif text-lg sm:text-xl font-normal tracking-tight text-stone-900">{title}</h3>
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition-colors"
+            className="rounded-xl p-1.5 text-stone-400 hover:bg-stone-200/60 hover:text-stone-700 transition-colors"
           >
             <X className="h-5 w-5" />
           </button>
         </div>
 
         {/* Content */}
-        <div className="overflow-y-auto px-6 py-5">{children}</div>
+        <div className="overflow-y-auto px-6 py-6">{children}</div>
       </div>
     </div>
   );

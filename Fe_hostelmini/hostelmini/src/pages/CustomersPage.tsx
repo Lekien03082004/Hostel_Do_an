@@ -159,41 +159,40 @@ export const CustomersPage: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Top Header & Action */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2.5">
-            <Users className="h-7 w-7 text-indigo-600" />
-            <span>Quản lý Khách hàng</span>
-          </h1>
-          <p className="text-xs text-slate-500 font-medium mt-0.5">
-            Lưu trữ danh bạ, giấy tờ tùy thân và lịch sử khách lưu trú
+          <h2 className="font-serif text-2xl sm:text-3xl font-normal tracking-tight text-stone-900">
+            Quản lý Khách thuê
+          </h2>
+          <p className="text-xs sm:text-sm text-stone-500 font-light mt-1">
+            Hồ sơ khách lưu trú, thông tin CCCD/Hộ chiếu và lịch sử lưu trú tại Aurelia Hostels.
           </p>
         </div>
 
         <button
           type="button"
           onClick={handleOpenAddModal}
-          className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-indigo-200 hover:bg-indigo-700 transition-all cursor-pointer"
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-stone-950 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-md hover:bg-stone-800 transition-all cursor-pointer"
         >
-          <Plus className="h-4 w-4" />
+          <Plus className="h-4 w-4 text-amber-300" />
           <span>Thêm khách hàng</span>
         </button>
       </div>
 
       {/* Search Bar */}
-      <div className="flex items-center gap-3 rounded-2xl bg-white p-3 border border-slate-200 shadow-xs">
+      <div className="flex items-center gap-3 rounded-2xl bg-white p-3.5 border border-[#E3DDD2] shadow-xs">
         <div className="relative flex-1">
-          <Search className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400 h-4 w-4" />
+          <Search className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-stone-400 h-4 w-4" />
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Tìm theo số điện thoại, CCCD/CMND hoặc họ tên khách..."
-            className="w-full rounded-xl bg-slate-50 py-2 pl-9 pr-4 text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-indigo-600/20"
+            className="w-full rounded-xl bg-[#F8F6F2] py-2 pl-9 pr-4 text-xs sm:text-sm text-stone-900 placeholder-stone-400 focus:bg-white focus:outline-hidden focus:ring-1 focus:ring-stone-900 border border-transparent focus:border-stone-400"
           />
         </div>
-        <div className="text-xs font-semibold text-slate-500 whitespace-nowrap px-2">
-          Tìm thấy: <span className="text-indigo-600 font-bold">{customers.length}</span> khách
+        <div className="text-xs font-semibold text-stone-600 whitespace-nowrap px-2">
+          Tìm thấy: <span className="text-amber-900 font-bold">{customers.length}</span> khách
         </div>
       </div>
 
@@ -201,104 +200,104 @@ export const CustomersPage: React.FC = () => {
       {loading ? (
         <div className="flex h-64 items-center justify-center">
           <div className="flex flex-col items-center gap-3">
-            <Loader2 className="h-8 w-8 animate-spin text-indigo-600" />
-            <span className="text-xs font-medium text-slate-500">Đang tra cứu dữ liệu khách hàng...</span>
+            <Loader2 className="h-8 w-8 animate-spin text-amber-800" />
+            <span className="text-xs font-medium text-stone-500">Đang tra cứu dữ liệu khách hàng...</span>
           </div>
         </div>
       ) : error ? (
-        <div className="rounded-2xl border border-rose-200 bg-rose-50 p-6 text-center text-rose-700">
-          <AlertCircle className="mx-auto h-8 w-8 text-rose-600 mb-2" />
+        <div className="rounded-2xl border border-amber-200 bg-amber-50/70 p-6 text-center text-amber-900">
+          <AlertCircle className="mx-auto h-8 w-8 text-amber-800 mb-2" />
           <p className="text-sm font-bold">{error}</p>
           <button
             type="button"
             onClick={() => fetchCustomers(searchTerm)}
-            className="mt-3 text-xs font-bold text-indigo-600 underline"
+            className="mt-3 text-xs font-bold text-stone-900 underline"
           >
             Thử lại
           </button>
         </div>
       ) : customers.length === 0 ? (
-        <div className="rounded-3xl border border-dashed border-slate-300 bg-white p-12 text-center">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 mb-3">
+        <div className="rounded-3xl border border-dashed border-[#DDD5C7] bg-white p-12 text-center">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#FAF6EE] text-amber-800 mb-3 border border-[#EBE1D0]">
             <Users className="h-7 w-7" />
           </div>
-          <h3 className="text-base font-bold text-slate-800">Không có khách hàng nào</h3>
-          <p className="mt-1 text-xs text-slate-500 max-w-sm mx-auto">
+          <h3 className="font-serif text-lg font-bold text-stone-800">Không có khách hàng nào</h3>
+          <p className="mt-1 text-xs text-stone-500 max-w-sm mx-auto font-light">
             {searchTerm ? 'Không tìm thấy khách hàng nào khớp với từ khóa.' : 'Tạo mới hồ sơ khách hàng để tiện cho việc đặt phòng nhanh.'}
           </p>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs">
+        <div className="overflow-hidden rounded-3xl border border-[#E3DDD2] bg-white shadow-xs">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs sm:text-sm">
-              <thead className="bg-slate-50 border-b border-slate-100 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+              <thead className="bg-[#FAF8F5] border-b border-[#EDE7DD] text-[11px] font-bold uppercase tracking-wider text-stone-600">
                 <tr>
-                  <th className="px-5 py-3.5">Khách hàng</th>
-                  <th className="px-5 py-3.5">Số điện thoại</th>
-                  <th className="px-5 py-3.5">Giấy tờ tùy thân</th>
-                  <th className="px-5 py-3.5">Email & Quốc tịch</th>
-                  <th className="px-5 py-3.5 text-right">Thao tác</th>
+                  <th className="px-6 py-4">Khách hàng</th>
+                  <th className="px-6 py-4">Số điện thoại</th>
+                  <th className="px-6 py-4">Giấy tờ tùy thân</th>
+                  <th className="px-6 py-4">Email & Quốc tịch</th>
+                  <th className="px-6 py-4 text-right">Thao tác</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 text-slate-700">
+              <tbody className="divide-y divide-[#F0ECE4] text-stone-700">
                 {customers.map((c) => (
-                  <tr key={c.id} className="hover:bg-slate-50/70 transition-colors">
+                  <tr key={c.id} className="hover:bg-[#FCFAF7] transition-colors">
                     {/* Customer Info */}
-                    <td className="px-5 py-4">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-indigo-100 text-indigo-700 font-bold text-xs">
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-3.5">
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FAF4EA] text-amber-900 font-serif font-bold text-sm border border-[#E7DAC4]">
                           {c.full_name[0]?.toUpperCase() || 'K'}
                         </div>
                         <div>
-                          <div className="font-bold text-slate-900">{c.full_name}</div>
+                          <div className="font-serif font-bold text-stone-900 text-sm">{c.full_name}</div>
                           {c.address && (
-                            <div className="text-[11px] text-slate-400 line-clamp-1">{c.address}</div>
+                            <div className="text-[11px] text-stone-400 line-clamp-1 mt-0.5">{c.address}</div>
                           )}
                         </div>
                       </div>
                     </td>
 
                     {/* Phone */}
-                    <td className="px-5 py-4">
+                    <td className="px-6 py-4">
                       {c.phone ? (
-                        <div className="flex items-center gap-1.5 font-medium text-slate-900">
-                          <Phone className="h-3.5 w-3.5 text-slate-400" />
+                        <div className="flex items-center gap-2 font-medium text-stone-900">
+                          <Phone className="h-3.5 w-3.5 text-amber-700" />
                           <span>{c.phone}</span>
                         </div>
                       ) : (
-                        <span className="text-slate-400 italic text-xs">Chưa có SĐT</span>
+                        <span className="text-stone-400 italic text-xs">Chưa có SĐT</span>
                       )}
                     </td>
 
                     {/* ID Card */}
-                    <td className="px-5 py-4">
+                    <td className="px-6 py-4">
                       {c.id_card_number ? (
-                        <div>
-                          <span className="inline-flex items-center gap-1 rounded-md bg-slate-100 px-2 py-0.5 text-xs font-mono font-bold text-slate-800">
-                            <CreditCard className="h-3 w-3 text-slate-500" />
+                        <div className="flex items-center gap-1.5">
+                          <span className="inline-flex items-center gap-1.5 rounded-lg bg-[#F8F6F2] px-2.5 py-1 text-xs font-mono font-bold text-stone-800 border border-[#E3DDD2]">
+                            <CreditCard className="h-3.5 w-3.5 text-amber-700" />
                             {c.id_card_number}
                           </span>
-                          <span className="ml-1.5 text-[11px] uppercase font-bold text-slate-400">
+                          <span className="text-[10px] uppercase font-bold text-amber-900 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
                             {c.id_card_type}
                           </span>
                         </div>
                       ) : (
-                        <span className="text-slate-400 italic text-xs">Chưa lưu CCCD</span>
+                        <span className="text-stone-400 italic text-xs">Chưa lưu CCCD</span>
                       )}
                     </td>
 
                     {/* Email & Nationality */}
-                    <td className="px-5 py-4">
+                    <td className="px-6 py-4">
                       <div className="space-y-1">
                         {c.email && (
-                          <div className="flex items-center gap-1.5 text-xs text-slate-600">
-                            <Mail className="h-3.5 w-3.5 text-slate-400" />
-                            <span className="truncate max-w-[150px]">{c.email}</span>
+                          <div className="flex items-center gap-2 text-xs text-stone-600">
+                            <Mail className="h-3.5 w-3.5 text-amber-700" />
+                            <span className="truncate max-w-[170px]">{c.email}</span>
                           </div>
                         )}
                         {c.nationality && (
-                          <div className="flex items-center gap-1.5 text-[11px] text-slate-500">
-                            <Globe className="h-3.5 w-3.5 text-slate-400" />
+                          <div className="flex items-center gap-2 text-[11px] text-stone-500">
+                            <Globe className="h-3.5 w-3.5 text-stone-400" />
                             <span>{c.nationality}</span>
                           </div>
                         )}
@@ -306,23 +305,23 @@ export const CustomersPage: React.FC = () => {
                     </td>
 
                     {/* Actions */}
-                    <td className="px-5 py-4 text-right whitespace-nowrap">
+                    <td className="px-6 py-4 text-right whitespace-nowrap">
                       <div className="flex items-center justify-end gap-1.5">
                         <button
                           type="button"
                           onClick={() => handleOpenEditModal(c)}
-                          className="rounded-lg p-1.5 text-slate-500 hover:bg-slate-100 hover:text-indigo-600 transition-colors"
+                          className="rounded-xl border border-stone-200 p-2 text-stone-600 hover:bg-stone-100 hover:text-stone-900 transition-colors"
                           title="Sửa khách hàng"
                         >
-                          <Edit2 className="h-4 w-4" />
+                          <Edit2 className="h-3.5 w-3.5" />
                         </button>
                         <button
                           type="button"
                           onClick={() => handleDeleteCustomer(c)}
-                          className="rounded-lg p-1.5 text-slate-500 hover:bg-rose-50 hover:text-rose-600 transition-colors"
+                          className="rounded-xl border border-stone-200 p-2 text-stone-500 hover:bg-rose-50 hover:text-rose-600 hover:border-rose-200 transition-colors"
                           title="Xóa khách hàng"
                         >
-                          <Trash2 className="h-4 w-4" />
+                          <Trash2 className="h-3.5 w-3.5" />
                         </button>
                       </div>
                     </td>
@@ -437,46 +436,46 @@ export const CustomersPage: React.FC = () => {
                 type="date"
                 value={formData.date_of_birth}
                 onChange={(e) => setFormData({ ...formData, date_of_birth: e.target.value })}
-                className="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-sm focus:border-indigo-600 focus:outline-hidden focus:ring-2 focus:ring-indigo-600/20"
+                className="w-full rounded-xl border border-stone-300 px-3.5 py-2 text-sm focus:border-stone-900 focus:outline-hidden focus:ring-1 focus:ring-stone-900"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Địa chỉ thường trú</label>
+              <label className="block text-xs font-semibold text-stone-700 mb-1">Địa chỉ thường trú</label>
               <input
                 type="text"
                 value={formData.address}
                 onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                 placeholder="TP. Hà Nội"
-                className="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-sm focus:border-indigo-600 focus:outline-hidden focus:ring-2 focus:ring-indigo-600/20"
+                className="w-full rounded-xl border border-stone-300 px-3.5 py-2 text-sm focus:border-stone-900 focus:outline-hidden focus:ring-1 focus:ring-stone-900"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">Ghi chú thêm</label>
+            <label className="block text-xs font-semibold text-stone-700 mb-1">Ghi chú thêm</label>
             <textarea
               rows={2}
               value={formData.note}
               onChange={(e) => setFormData({ ...formData, note: e.target.value })}
               placeholder="Sở thích, lưu ý đặc biệt khi khách đến..."
-              className="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-sm focus:border-indigo-600 focus:outline-hidden focus:ring-2 focus:ring-indigo-600/20"
+              className="w-full rounded-xl border border-stone-300 px-3.5 py-2 text-sm focus:border-stone-900 focus:outline-hidden focus:ring-1 focus:ring-stone-900"
             />
           </div>
 
           {/* Form Actions */}
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
+          <div className="flex items-center justify-end gap-3 pt-5 border-t border-[#EDE7DD]">
             <button
               type="button"
               onClick={() => setIsModalOpen(false)}
-              className="rounded-xl border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-colors"
+              className="rounded-xl border border-stone-300 px-4 py-2 text-xs font-semibold text-stone-700 hover:bg-stone-100 transition-colors cursor-pointer"
             >
               Hủy bỏ
             </button>
             <button
               type="submit"
               disabled={submitting}
-              className="flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2 text-xs font-bold text-white shadow-md shadow-indigo-200 hover:bg-indigo-700 transition-all disabled:opacity-60 cursor-pointer"
+              className="flex items-center gap-2 rounded-xl bg-stone-950 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-md hover:bg-stone-800 transition-all disabled:opacity-60 cursor-pointer"
             >
               {submitting && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
               <span>{editingCustomer ? 'Lưu thay đổi' : 'Thêm khách hàng'}</span>

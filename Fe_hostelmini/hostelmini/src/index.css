@@ -1,7 +1,42 @@
 @import "tailwindcss";
 
+@theme {
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+  --color-gold-50: #FAF6EE;
+  --color-gold-100: #F3ECE0;
+  --color-gold-200: #E4D5BE;
+  --color-gold-300: #D4BD99;
+  --color-gold-400: #C5A880;
+  --color-gold-500: #B89360;
+  --color-gold-600: #9E7A4A;
+  --color-gold-700: #7E5F38;
+  --color-gold-800: #5E4628;
+  --color-gold-900: #3E2E1A;
+
+  --color-charcoal-950: #0C0B0A;
+  --color-charcoal-900: #141312;
+  --color-charcoal-800: #1E1C1A;
+  --color-charcoal-700: #2C2926;
+  --color-charcoal-600: #423E3A;
+  
+  --color-cream-50: #FCFAF7;
+  --color-cream-100: #F7F4EE;
+  --color-cream-200: #EFE9DE;
+  --color-cream-300: #E2D9C8;
+}
+
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-900 antialiased min-h-screen font-sans;
+    font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #F7F5F0;
+    color: #1A1816;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  .font-serif {
+    font-family: "Playfair Display", Georgia, serif;
   }
 }

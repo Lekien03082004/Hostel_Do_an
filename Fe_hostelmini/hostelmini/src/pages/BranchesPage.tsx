@@ -167,42 +167,41 @@ export const BranchesPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Top Header & Action */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2.5">
-            <Building2 className="h-7 w-7 text-indigo-600" />
-            <span>Quản lý Chi nhánh</span>
-          </h1>
-          <p className="text-xs text-slate-500 font-medium mt-0.5">
-            Quản lý các cơ sở thuộc chuỗi khách sạn / hostel mini
+          <h2 className="font-serif text-2xl sm:text-3xl font-normal tracking-tight text-stone-900">
+            Quản lý Chi nhánh
+          </h2>
+          <p className="text-xs sm:text-sm text-stone-500 font-light mt-1">
+            Hệ thống chuỗi cơ sở lưu trú và điểm phục vụ cao cấp của Aurelia Hostels.
           </p>
         </div>
 
         <button
           type="button"
           onClick={handleOpenAddModal}
-          className="inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-indigo-200 hover:bg-indigo-700 transition-all cursor-pointer"
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-stone-950 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-md hover:bg-stone-800 transition-all cursor-pointer"
         >
-          <Plus className="h-4 w-4" />
+          <Plus className="h-4 w-4 text-amber-300" />
           <span>Thêm chi nhánh</span>
         </button>
       </div>
 
       {/* Search Bar */}
-      <div className="flex items-center gap-3 rounded-2xl bg-white p-3 border border-slate-200 shadow-xs">
+      <div className="flex items-center gap-3 rounded-2xl bg-white p-3.5 border border-[#E3DDD2] shadow-xs">
         <div className="relative flex-1">
-          <Search className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400 h-4 w-4" />
+          <Search className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-stone-400 h-4 w-4" />
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Tìm theo mã chi nhánh, tên hoặc địa chỉ..."
-            className="w-full rounded-xl bg-slate-50 py-2 pl-9 pr-4 text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-hidden focus:ring-2 focus:ring-indigo-600/20"
+            placeholder="Tìm kiếm theo mã chi nhánh, tên hoặc địa chỉ..."
+            className="w-full rounded-xl bg-[#F8F6F2] py-2 pl-9 pr-4 text-xs sm:text-sm text-stone-900 placeholder-stone-400 focus:bg-white focus:outline-hidden focus:ring-1 focus:ring-stone-900 border border-transparent focus:border-stone-400"
           />
         </div>
-        <div className="text-xs font-semibold text-slate-500 whitespace-nowrap px-2">
-          Tổng: <span className="text-indigo-600 font-bold">{filteredBranches.length}</span> chi nhánh
+        <div className="text-xs font-semibold text-stone-600 whitespace-nowrap px-2">
+          Tổng cộng: <span className="text-amber-900 font-bold">{filteredBranches.length}</span> chi nhánh
         </div>
       </div>
 
@@ -210,73 +209,73 @@ export const BranchesPage: React.FC = () => {
       {loading ? (
         <div className="flex h-64 items-center justify-center">
           <div className="flex flex-col items-center gap-3">
-            <Loader2 className="h-8 w-8 animate-spin text-indigo-600" />
-            <span className="text-xs font-medium text-slate-500">Đang tải danh sách chi nhánh...</span>
+            <Loader2 className="h-8 w-8 animate-spin text-amber-800" />
+            <span className="text-xs font-medium text-stone-500">Đang tải dữ liệu chi nhánh...</span>
           </div>
         </div>
       ) : error ? (
-        <div className="rounded-2xl border border-rose-200 bg-rose-50 p-6 text-center text-rose-700">
-          <AlertCircle className="mx-auto h-8 w-8 text-rose-600 mb-2" />
+        <div className="rounded-2xl border border-amber-200 bg-amber-50/70 p-6 text-center text-amber-900">
+          <AlertCircle className="mx-auto h-8 w-8 text-amber-800 mb-2" />
           <p className="text-sm font-bold">{error}</p>
           <button
             type="button"
             onClick={fetchBranches}
-            className="mt-3 text-xs font-bold text-indigo-600 underline"
+            className="mt-3 text-xs font-bold text-stone-900 underline"
           >
             Thử lại
           </button>
         </div>
       ) : filteredBranches.length === 0 ? (
-        <div className="rounded-3xl border border-dashed border-slate-300 bg-white p-12 text-center">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 mb-3">
+        <div className="rounded-3xl border border-dashed border-[#DDD5C7] bg-white p-12 text-center">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#FAF6EE] text-amber-800 mb-3 border border-[#EBE1D0]">
             <Building2 className="h-7 w-7" />
           </div>
-          <h3 className="text-base font-bold text-slate-800">Chưa có chi nhánh nào</h3>
-          <p className="mt-1 text-xs text-slate-500 max-w-sm mx-auto">
+          <h3 className="font-serif text-lg font-bold text-stone-800">Chưa có chi nhánh nào</h3>
+          <p className="mt-1 text-xs text-stone-500 max-w-sm mx-auto font-light">
             {searchTerm ? 'Không tìm thấy chi nhánh phù hợp với từ khóa.' : 'Bắt đầu bằng cách bấm "Thêm chi nhánh" để tạo cơ sở đầu tiên.'}
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredBranches.map((branch) => (
             <div
               key={branch.id}
-              className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-5 shadow-xs hover:shadow-md transition-all group"
+              className="flex flex-col justify-between rounded-3xl border border-[#E3DDD2] bg-white p-6 shadow-xs hover:shadow-lg transition-all duration-300 group"
             >
               <div>
                 {/* Header card */}
-                <div className="flex items-start justify-between gap-3 mb-3">
+                <div className="flex items-start justify-between gap-3 mb-3.5">
                   <div className="flex items-center gap-2">
-                    <span className="rounded-lg bg-indigo-100 px-2.5 py-1 text-xs font-black text-indigo-700 tracking-wider">
+                    <span className="rounded-lg bg-[#FAF4EA] px-2.5 py-1 text-xs font-bold text-amber-900 tracking-wider border border-[#E7DAC4]">
                       {branch.code}
                     </span>
                     {branch.is_active ? (
-                      <span className="flex items-center gap-1 rounded-md bg-emerald-50 px-2 py-0.5 text-[11px] font-bold text-emerald-600 border border-emerald-200">
+                      <span className="flex items-center gap-1 rounded-md bg-emerald-50 px-2 py-0.5 text-[11px] font-bold text-emerald-700 border border-emerald-200">
                         <CheckCircle className="h-3 w-3" /> Hoạt động
                       </span>
                     ) : (
-                      <span className="rounded-md bg-slate-100 px-2 py-0.5 text-[11px] font-bold text-slate-500">
+                      <span className="rounded-md bg-stone-100 px-2 py-0.5 text-[11px] font-bold text-stone-500">
                         Tạm dừng
                       </span>
                     )}
                   </div>
 
                   {branch.total_floors && (
-                    <span className="flex items-center gap-1 text-[11px] font-bold text-slate-400">
+                    <span className="flex items-center gap-1 text-[11px] font-bold text-stone-400">
                       <Layers className="h-3.5 w-3.5" />
                       {branch.total_floors} tầng
                     </span>
                   )}
                 </div>
 
-                <h3 className="text-base font-bold text-slate-900 group-hover:text-indigo-600 transition-colors line-clamp-1">
+                <h3 className="font-serif text-lg font-normal text-stone-900 group-hover:text-amber-900 transition-colors line-clamp-1">
                   {branch.name}
                 </h3>
 
                 {/* Details */}
-                <div className="mt-3.5 space-y-2 text-xs text-slate-600">
-                  <div className="flex items-start gap-2">
-                    <MapPin className="h-4 w-4 shrink-0 text-slate-400 mt-0.5" />
+                <div className="mt-4 space-y-2.5 text-xs text-stone-600">
+                  <div className="flex items-start gap-2.5">
+                    <MapPin className="h-4 w-4 shrink-0 text-amber-700 mt-0.5" />
                     <span className="line-clamp-2">
                       {branch.address}
                       {branch.district ? `, ${branch.district}` : ''}
@@ -285,15 +284,15 @@ export const BranchesPage: React.FC = () => {
                   </div>
 
                   {branch.phone && (
-                    <div className="flex items-center gap-2">
-                      <Phone className="h-4 w-4 shrink-0 text-slate-400" />
+                    <div className="flex items-center gap-2.5">
+                      <Phone className="h-4 w-4 shrink-0 text-amber-700" />
                       <span>{branch.phone}</span>
                     </div>
                   )}
 
                   {branch.email && (
-                    <div className="flex items-center gap-2">
-                      <Mail className="h-4 w-4 shrink-0 text-slate-400" />
+                    <div className="flex items-center gap-2.5">
+                      <Mail className="h-4 w-4 shrink-0 text-amber-700" />
                       <span className="truncate">{branch.email}</span>
                     </div>
                   )}
@@ -301,11 +300,11 @@ export const BranchesPage: React.FC = () => {
               </div>
 
               {/* Actions footer */}
-              <div className="mt-5 flex items-center justify-end gap-2 border-t border-slate-100 pt-3.5">
+              <div className="mt-6 flex items-center justify-end gap-2 border-t border-[#F0ECE4] pt-4">
                 <button
                   type="button"
                   onClick={() => handleOpenEditModal(branch)}
-                  className="flex items-center gap-1.5 rounded-lg border border-slate-200 px-2.5 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 hover:text-indigo-600 transition-colors"
+                  className="flex items-center gap-1.5 rounded-xl border border-stone-200 px-3 py-1.5 text-xs font-semibold text-stone-700 hover:bg-stone-100 hover:text-stone-900 transition-colors"
                 >
                   <Edit2 className="h-3.5 w-3.5" />
                   Sửa
@@ -313,7 +312,7 @@ export const BranchesPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => handleDeleteBranch(branch)}
-                  className="flex items-center gap-1.5 rounded-lg border border-slate-200 px-2.5 py-1.5 text-xs font-semibold text-rose-600 hover:bg-rose-50 hover:border-rose-200 transition-colors"
+                  className="flex items-center gap-1.5 rounded-xl border border-stone-200 px-3 py-1.5 text-xs font-semibold text-rose-600 hover:bg-rose-50 hover:border-rose-200 transition-colors"
                 >
                   <Trash2 className="h-3.5 w-3.5" />
                   Xóa
@@ -445,37 +444,37 @@ export const BranchesPage: React.FC = () => {
                 value={formData.total_floors}
                 onChange={(e) => setFormData({ ...formData, total_floors: e.target.value })}
                 placeholder="5"
-                className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-indigo-600 focus:outline-hidden focus:ring-2 focus:ring-indigo-600/20"
+                className="w-full rounded-xl border border-stone-300 px-3.5 py-2 text-sm focus:border-stone-900 focus:outline-hidden focus:ring-1 focus:ring-stone-900"
               />
             </div>
           </div>
 
-          <div className="flex items-center gap-2 pt-2">
+          <div className="flex items-center gap-2.5 pt-2">
             <input
               id="is_active"
               type="checkbox"
               checked={formData.is_active}
               onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })}
-              className="h-4 w-4 rounded-md border-slate-300 text-indigo-600 focus:ring-indigo-600"
+              className="h-4 w-4 rounded-sm border-stone-300 text-stone-900 accent-stone-900 focus:ring-stone-900"
             />
-            <label htmlFor="is_active" className="text-xs font-bold text-slate-700 cursor-pointer">
+            <label htmlFor="is_active" className="text-xs font-semibold text-stone-700 cursor-pointer">
               Đang hoạt động (cho phép tạo phòng & nhận khách)
             </label>
           </div>
 
           {/* Form Actions */}
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
+          <div className="flex items-center justify-end gap-3 pt-5 border-t border-[#EDE7DD]">
             <button
               type="button"
               onClick={() => setIsModalOpen(false)}
-              className="rounded-xl border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-colors"
+              className="rounded-xl border border-stone-300 px-4 py-2 text-xs font-semibold text-stone-700 hover:bg-stone-100 transition-colors cursor-pointer"
             >
               Hủy bỏ
             </button>
             <button
               type="submit"
               disabled={submitting}
-              className="flex items-center gap-2 rounded-xl bg-indigo-600 px-5 py-2 text-xs font-bold text-white shadow-md shadow-indigo-200 hover:bg-indigo-700 transition-all disabled:opacity-60 cursor-pointer"
+              className="flex items-center gap-2 rounded-xl bg-stone-950 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-md hover:bg-stone-800 transition-all disabled:opacity-60 cursor-pointer"
             >
               {submitting && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
               <span>{editingBranch ? 'Lưu thay đổi' : 'Thêm chi nhánh'}</span>
