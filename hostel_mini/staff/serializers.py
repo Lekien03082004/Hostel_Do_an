@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
+from branches.models import Branch
 from .models import Role, Employee, EmployeeBranch, Shift, EmployeeShiftSchedule
 
 User = get_user_model()
@@ -106,3 +107,53 @@ class CurrentUserSerializer(serializers.ModelSerializer):
             }
         except Employee.DoesNotExist:
             return None
+
+
+class RegisterSerializer(serializers.Serializer):
+    username = serializers.CharField(min_length=3, max_length=50)
+    password = serializers.CharField(write_only=True, min_length=6)
+    email = serializers.EmailField(required=False, allow_blank=True, default="")
+    full_name = serializers.CharField(max_length=150)
+    phone = serializers.CharField(required=False, allow_blank=True, default="", max_length=20)
+
+    def validate_username(self, value):
+        if User.objects.filter(username=value).exists():
+            raise serializers.ValidationError("Tên đăng nhập này đã được sử dụng.")
+        return value
+
+    def create(self, validated_data):
+        import uuid
+        username = validated_data["username"]
+        password = validated_data["password"]
+        email = validated_data.get("email", "")
+        full_name = validated_data["full_name"]
+        phone = validated_data.get("phone", "")
+
+        user = User.objects.create_user(
+            username=username,
+            password=password,
+            email=email,
+            first_name=full_name,
+        )
+
+        code_suffix = uuid.uuid4().hex[:6].upper()
+        employee_code = f"EMP{code_suffix}"
+
+        role = Role.objects.filter(code="receptionist").first()
+        if not role:
+            role, _ = Role.objects.get_or_create(code="receptionist", defaults={"name": "Lễ tân"})
+
+        home_branch = Branch.objects.filter(is_active=True).first()
+
+        Employee.objects.create(
+            user=user,
+            employee_code=employee_code,
+            full_name=full_name,
+            email=email,
+            phone=phone,
+            role=role,
+            home_branch=home_branch,
+            is_active=True,
+        )
+
+        return user

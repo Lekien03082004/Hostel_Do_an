@@ -1,6 +1,7 @@
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import Role, Employee, EmployeeBranch, Shift, EmployeeShiftSchedule
 from .serializers import (
@@ -10,6 +11,7 @@ from .serializers import (
     ShiftSerializer,
     EmployeeShiftScheduleSerializer,
     CurrentUserSerializer,
+    RegisterSerializer,
 )
 
 
@@ -61,3 +63,27 @@ class CurrentUserView(APIView):
     def get(self, request):
         serializer = CurrentUserSerializer(request.user)
         return Response(serializer.data)
+
+
+class RegisterView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        serializer = RegisterSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            refresh = RefreshToken.for_user(user)
+            user_data = CurrentUserSerializer(user).data
+            return Response(
+                {
+                    "message": "Đăng ký tài khoản thành công.",
+                    "user": user_data,
+                    "tokens": {
+                        "refresh": str(refresh),
+                        "access": str(refresh.access_token),
+                    },
+                },
+                status=status.HTTP_201_CREATED,
+            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+

@@ -33,9 +33,9 @@ class Employee(models.Model):
     full_name = models.CharField(max_length=150)
     phone = models.CharField(max_length=20, null=True, blank=True)
     email = models.EmailField(max_length=100, null=True, blank=True)
-    role = models.ForeignKey(Role, on_delete=models.PROTECT, related_name="employees")
+    role = models.ForeignKey(Role, on_delete=models.SET_NULL, null=True, blank=True, related_name="employees")
     home_branch = models.ForeignKey(
-        Branch, on_delete=models.PROTECT, related_name="employees", help_text="Chi nhánh chính (biên chế)"
+        Branch, on_delete=models.SET_NULL, null=True, blank=True, related_name="employees", help_text="Chi nhánh chính (biên chế)"
     )
     avatar_url = models.URLField(
         max_length=500, null=True, blank=True,
