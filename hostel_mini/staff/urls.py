@@ -7,6 +7,7 @@ from .views import (
     ShiftViewSet,
     EmployeeShiftScheduleViewSet,
     CurrentUserView,
+    UserViewSet,
 )
 
 app_name = "staff"
@@ -17,6 +18,7 @@ router.register(r"employees", EmployeeViewSet, basename="employee")
 router.register(r"assignments", EmployeeBranchViewSet, basename="employee-branch")
 router.register(r"shifts", ShiftViewSet, basename="shift")
 router.register(r"schedules", EmployeeShiftScheduleViewSet, basename="employee-schedule")
+router.register(r"users", UserViewSet, basename="user")
 
 urlpatterns = [
     path("me/", CurrentUserView.as_view(), name="current_user"),

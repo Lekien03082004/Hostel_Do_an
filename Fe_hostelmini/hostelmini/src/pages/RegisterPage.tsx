@@ -14,12 +14,11 @@ import {
   Coffee,
   Bed,
   ArrowRight,
-  Search,
   Headphones,
   Sparkles,
-  Hotel,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { PublicHeader } from '../components/layout/PublicHeader';
 
 export const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -74,7 +73,7 @@ export const RegisterPage = () => {
         email: formData.email.trim() || undefined,
         phone: formData.phone.trim() || undefined,
       });
-      navigate('/branches');
+      navigate('/profile');
     } catch (err: any) {
       if (err.response?.data?.username) {
         setError(err.response.data.username[0]);
@@ -91,40 +90,46 @@ export const RegisterPage = () => {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-[#EDE9E1] p-0 md:p-6 lg:p-10 font-sans">
-      <div className="w-full max-w-6xl min-h-[720px] bg-white rounded-none md:rounded-3xl shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 border border-[#E3DDD2]">
-        {/* LEFT COLUMN: HERO BOUTIQUE EXPERIENCE */}
-        <div className="lg:col-span-6 relative hidden lg:flex flex-col justify-between p-10 text-white overflow-hidden bg-stone-900">
-          {/* Background Image with Warm Dark Gradient */}
-          <div
-            className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 scale-105"
-            style={{
-              backgroundImage: `url('/images/hotel_lobby.jpg')`,
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-black/85 backdrop-blur-[2px]" />
+    <div className="min-h-screen flex flex-col bg-[#EDE9E1] font-sans">
+      {/* GLOBAL PUBLIC HEADER WITH HOME, ROOM, BRANCHES, DỊCH VỤ, LOGIN */}
+      <PublicHeader />
 
-          {/* Top Brand Header */}
-          <div className="relative z-10 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center backdrop-blur-md">
-                <Hotel className="w-5 h-5 text-amber-300" />
+      <div className="flex-1 flex items-center justify-center p-0 md:p-6 lg:p-10">
+        <div className="w-full max-w-6xl min-h-[720px] bg-white rounded-none md:rounded-3xl shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 border border-[#E3DDD2]">
+          {/* LEFT COLUMN: HERO BOUTIQUE EXPERIENCE */}
+          <div className="lg:col-span-6 relative hidden lg:flex flex-col justify-between p-10 text-white overflow-hidden bg-stone-900">
+            {/* Background Image with Warm Dark Gradient */}
+            <div
+              className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 scale-105"
+              style={{
+                backgroundImage: `url('/images/hotel_lobby.jpg')`,
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-black/85 backdrop-blur-[2px]" />
+
+            {/* Top Brand Header with Official AH Logo */}
+            <div className="relative z-10 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <img
+                  src="/images/logo.png"
+                  alt="AH Hotel & Hospitality Logo"
+                  className="w-12 h-12 rounded-full border-2 border-amber-400/60 object-cover shadow-lg"
+                />
+                <div>
+                  <h2 className="font-serif text-lg tracking-wider font-bold text-amber-200 uppercase">
+                    AH Hotel
+                  </h2>
+                  <p className="text-[10px] tracking-widest text-stone-300 uppercase font-medium">
+                    Boutique Stays & Social Pods
+                  </p>
+                </div>
               </div>
-              <div>
-                <h2 className="font-serif text-lg tracking-wider font-bold text-white uppercase">
-                  Aurelia Hostels
-                </h2>
-                <p className="text-[10px] tracking-widest text-amber-200/80 uppercase font-medium">
-                  Boutique Stays & Social Pods
-                </p>
+
+              <div className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[11px] font-medium text-amber-200 flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                HOSTEL PASS • GIẢM THÊM 10%
               </div>
             </div>
-
-            <div className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[11px] font-medium text-amber-200 flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-              HOSTEL PASS • GIẢM THÊM 10%
-            </div>
-          </div>
 
           {/* Middle Quote & Description */}
           <div className="relative z-10 my-auto py-8">
@@ -174,12 +179,14 @@ export const RegisterPage = () => {
         <div className="lg:col-span-6 bg-white flex flex-col justify-between p-6 sm:p-10 lg:p-12 overflow-y-auto max-h-[90vh]">
           {/* Top Bar */}
           <div className="flex items-center justify-between pb-4 border-b border-stone-100">
-            <div className="flex items-center gap-2 text-stone-800">
-              <div className="w-7 h-7 rounded-lg bg-[#FAF4EA] border border-[#E8DCC8] flex items-center justify-center text-amber-800 font-serif font-bold text-xs">
-                A
-              </div>
+            <div className="flex items-center gap-2.5 text-stone-800">
+              <img
+                src="/images/logo.png"
+                alt="AH Logo"
+                className="w-7 h-7 rounded-full border border-amber-400/60 object-cover shadow-xs"
+              />
               <span className="text-xs font-bold uppercase tracking-wider text-stone-700">
-                Aurelia Travel Pass
+                AH Travel Pass
               </span>
             </div>
 
@@ -194,7 +201,7 @@ export const RegisterPage = () => {
           </div>
 
           <div className="my-auto py-6">
-            {/* Tabs: Đăng Nhập / Tạo Tài Khoản / Tìm Đơn */}
+            {/* Tabs: Đăng Nhập / Tạo Tài Khoản */}
             <div className="flex items-center gap-1.5 p-1 bg-stone-100/90 rounded-xl mb-6 border border-stone-200/60 max-w-md">
               <Link
                 to="/login"
@@ -208,14 +215,7 @@ export const RegisterPage = () => {
               >
                 Tạo Tài Khoản
               </button>
-              <button
-                type="button"
-                onClick={() => alert('Chức năng tra cứu mã đặt phòng sẽ khả dụng khi kết nối với cổng đặt phòng trực tuyến.')}
-                className="px-3 py-2 text-xs font-medium rounded-lg text-stone-500 hover:text-stone-900 transition-all flex items-center justify-center gap-1"
-              >
-                <Search className="w-3 h-3" />
-                <span>Tìm Đơn</span>
-              </button>
+              
             </div>
 
             {/* Title & Description */}
@@ -413,12 +413,13 @@ export const RegisterPage = () => {
               </p>
               <p className="text-stone-500 text-[11px]">
                 Lễ tân hỗ trợ 24/7 qua Hotline:{' '}
-                <span className="font-bold text-amber-900">1900 6886</span> hoặc Zalo / WhatsApp.
+                <span className="font-bold text-amber-900">888017377</span> hoặc Zalo / WhatsApp.
               </p>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
   );
 };

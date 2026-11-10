@@ -54,6 +54,15 @@ class Booking(models.Model):
     status = models.CharField(max_length=15, choices=Status.choices, default=Status.PENDING)
     booked_at = models.DateTimeField(auto_now_add=True)
     note = models.TextField(null=True, blank=True)
+
+    # Khách hàng tự gửi yêu cầu Check-in & Check-out
+    checkin_requested = models.BooleanField(default=False, help_text="Khách đã gửi yêu cầu nhận phòng")
+    checkin_request_time = models.DateTimeField(null=True, blank=True, help_text="Thời điểm gửi yêu cầu check-in")
+    checkin_note = models.CharField(max_length=255, null=True, blank=True, help_text="Ghi chú nhận phòng từ khách")
+    checkout_requested = models.BooleanField(default=False, help_text="Khách đã gửi yêu cầu trả phòng")
+    checkout_request_time = models.DateTimeField(null=True, blank=True, help_text="Thời điểm gửi yêu cầu check-out")
+    checkout_note = models.CharField(max_length=255, null=True, blank=True, help_text="Ghi chú trả phòng từ khách")
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -121,14 +130,33 @@ class BookingDetail(models.Model):
 
 
 class Service(models.Model):
+    class Category(models.TextChoices):
+        FOOD_BEVERAGE = "food_beverage", "Ẩm thực & Đồ uống"
+        LAUNDRY = "laundry", "Giặt là & Giặt sấy"
+        SPA_WELLNESS = "spa_wellness", "Spa & Chăm sóc sức khỏe"
+        TRANSPORT = "transport", "Xe đưa đón & Di chuyển"
+        ROOM_AMENITIES = "room_amenities", "Tiện ích & Buồng phòng"
+        OTHER = "other", "Dịch vụ khác"
+
     id = models.BigAutoField(primary_key=True)
     branch = models.ForeignKey(
         Branch, on_delete=models.CASCADE, related_name="services", null=True, blank=True,
         help_text="NULL = dịch vụ áp dụng chung toàn chuỗi",
     )
+    category = models.CharField(
+        max_length=30,
+        choices=Category.choices,
+        default=Category.FOOD_BEVERAGE,
+        help_text="Phân loại danh mục dịch vụ",
+    )
     name = models.CharField(max_length=100, help_text="VD: Ăn sáng, Giặt ủi, Đưa đón sân bay")
-    unit = models.CharField(max_length=30, default="lần", help_text="VD: lần, suất, kg")
+    unit = models.CharField(max_length=30, default="lần", help_text="VD: lần, suất, kg, tiếng, chuyến")
     price = models.DecimalField(max_digits=12, decimal_places=2)
+    description = models.TextField(null=True, blank=True, help_text="Mô tả chi tiết món ăn / quy trình dịch vụ")
+    image_url = models.URLField(
+        max_length=500, null=True, blank=True,
+        help_text="Đường dẫn ảnh minh họa dịch vụ",
+    )
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

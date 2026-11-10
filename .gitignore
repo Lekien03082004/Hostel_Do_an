@@ -46,3 +46,9 @@ staticfiles/
 *.sublime-workspace
 .DS_Store
 Thumbs.db
+
+# Documentation & diagrams
+doc/
+erd_diagram.drawio
+*.drawio
+

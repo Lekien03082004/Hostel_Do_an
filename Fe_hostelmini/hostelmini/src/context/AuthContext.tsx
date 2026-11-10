@@ -1,13 +1,13 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
-import apiClient from '../api/client';
-import type { User, LoginResponse, RegisterResponse } from '../types';
+import { authApi } from '../api';
+import type { User } from '../types';
 
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (username: string, password: string) => Promise<void>;
-  register: (data: { username: string; password: string; full_name: string; email?: string; phone?: string }) => Promise<void>;
+  login: (username: string, password: string) => Promise<User | null>;
+  register: (data: { username: string; password: string; full_name: string; email?: string; phone?: string }) => Promise<User | null>;
   logout: () => void;
   refreshUser: () => Promise<void>;
 }
@@ -20,12 +20,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const fetchCurrentUser = async () => {
     try {
-      const res = await apiClient.get<User>('/auth/me/');
+      const res = await authApi.getCurrentUser();
       setUser(res.data);
+      return res.data;
     } catch {
       setUser(null);
       localStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
+      return null;
     } finally {
       setIsLoading(false);
     }
@@ -40,20 +42,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
-  const login = async (username: string, password: string) => {
-    const res = await apiClient.post<LoginResponse>('/auth/login/', { username, password });
+  const login = async (username: string, password: string): Promise<User | null> => {
+    const res = await authApi.login({ username, password });
     localStorage.setItem('access_token', res.data.access);
     localStorage.setItem('refresh_token', res.data.refresh);
-    await fetchCurrentUser();
+    return await fetchCurrentUser();
   };
 
-  const register = async (data: { username: string; password: string; full_name: string; email?: string; phone?: string }) => {
-    const res = await apiClient.post<RegisterResponse>('/auth/register/', data);
+  const register = async (data: { username: string; password: string; full_name: string; email?: string; phone?: string }): Promise<User | null> => {
+    const res = await authApi.register(data);
     if (res.data.tokens) {
       localStorage.setItem('access_token', res.data.tokens.access);
       localStorage.setItem('refresh_token', res.data.tokens.refresh);
       setUser(res.data.user);
+      return res.data.user;
     }
+    return null;
   };
 
   const logout = () => {

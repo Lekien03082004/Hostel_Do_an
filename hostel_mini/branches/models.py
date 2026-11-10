@@ -12,6 +12,7 @@ class Branch(models.Model):
     phone = models.CharField(max_length=20, null=True, blank=True)
     email = models.EmailField(max_length=100, null=True, blank=True)
     total_floors = models.PositiveSmallIntegerField(null=True, blank=True)
+    image_url = models.URLField(max_length=500, null=True, blank=True, help_text="Đường dẫn ảnh đại diện chi nhánh")
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

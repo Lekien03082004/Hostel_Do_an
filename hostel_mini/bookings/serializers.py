@@ -20,10 +20,24 @@ class BookingSourceSerializer(serializers.ModelSerializer):
 
 class ServiceSerializer(serializers.ModelSerializer):
     branch_name = serializers.CharField(source="branch.name", read_only=True)
+    category_display = serializers.CharField(source="get_category_display", read_only=True)
 
     class Meta:
         model = Service
-        fields = ["id", "branch", "branch_name", "name", "unit", "price", "is_active", "created_at"]
+        fields = [
+            "id",
+            "branch",
+            "branch_name",
+            "category",
+            "category_display",
+            "name",
+            "unit",
+            "price",
+            "description",
+            "image_url",
+            "is_active",
+            "created_at",
+        ]
         read_only_fields = ["id", "created_at"]
 
 
@@ -93,6 +107,12 @@ class BookingSerializer(serializers.ModelSerializer):
             "status",
             "booked_at",
             "note",
+            "checkin_requested",
+            "checkin_request_time",
+            "checkin_note",
+            "checkout_requested",
+            "checkout_request_time",
+            "checkout_note",
             "details",
             "created_at",
             "updated_at",
@@ -145,7 +165,11 @@ class BookingCreateSerializer(serializers.Serializer):
 
         with transaction.atomic():
             if not customer and customer_data:
-                customer = Customer.objects.create(**customer_data)
+                phone = customer_data.get("phone")
+                if phone:
+                    customer = Customer.objects.filter(phone=phone).first()
+                if not customer:
+                    customer = Customer.objects.create(**customer_data)
 
             # Sinh mã đặt phòng duy nhất: BK + YYYYMMDD + 4 ký tự ngẫu nhiên
             today_str = timezone.now().strftime("%Y%m%d")
